@@ -1,0 +1,389 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     11424,        380]
+NotebookOptionsPosition[     10213,        335]
+NotebookOutlinePosition[     10658,        352]
+CellTagsIndexPosition[     10615,        349]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+                                                       Practical 9
+                                            Lagrange Interpolation \
+\>", "Title",
+ CellChangeTimes->{{3.825036336095689*^9, 3.8250363527829723`*^9}, {
+  3.839836465825281*^9, 3.8398364705381713`*^9}}],
+
+Cell[TextData[{
+ "  ",
+ StyleBox[" Lagrange Interpolation",
+  FontWeight->"Bold"]
+}], "Subtitle",
+ CellChangeTimes->{3.8250363258717127`*^9}],
+
+Cell["\<\
+Q. Find the unique polynomial of degree 2 or less such that f(0) = 1, f(1) = \
+3, f(3) = 55.\
+\>", "Subsubtitle",
+ CellChangeTimes->{{3.713486013114682*^9, 3.713486125263279*^9}, {
+  3.713486710357907*^9, 3.713486759373193*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{"Lagrange", "[", 
+    RowBox[{"x0_", ",", " ", "f0_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"xi", " ", "=", " ", "x0"}], ",", " ", 
+       RowBox[{"fi", " ", "=", " ", "f0"}], ",", " ", "n", ",", "m", ",", " ",
+        "polynomial"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"n", " ", "=", " ", 
+       RowBox[{"Length", "[", "xi", "]"}]}], ";", " ", 
+      RowBox[{"m", " ", "=", " ", 
+       RowBox[{"Length", "[", "fi", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", " ", 
+       RowBox[{
+        RowBox[{"n", " ", "\[NotEqual]", " ", "m"}], ",", " ", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+         "Print", "[", 
+          "\"\<List of points and function values are not of same size\>\"", 
+          "]"}], ";", " ", 
+         RowBox[{"Return", "[", "]"}], ";"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+        RowBox[{"i", "\[LessEqual]", "n"}], ",", " ", 
+        RowBox[{"i", "++"}], ",", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"L", "[", 
+           RowBox[{"i", ",", " ", "x_"}], "]"}], " ", "=", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             UnderoverscriptBox["\[Product]", 
+              RowBox[{"j", "=", "1"}], 
+              RowBox[{"i", "-", "1"}]], 
+             FractionBox[
+              RowBox[{"x", " ", "-", " ", 
+               RowBox[{"xi", "[", 
+                RowBox[{"[", "j", "]"}], "]"}]}], 
+              RowBox[{
+               RowBox[{"xi", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "-", 
+               RowBox[{"xi", "[", 
+                RowBox[{"[", "j", "]"}], "]"}]}]]}], ")"}], " ", 
+           RowBox[{"(", 
+            RowBox[{
+             UnderoverscriptBox["\[Product]", 
+              RowBox[{"j", "=", " ", 
+               RowBox[{"i", "+", "1"}]}], "n"], 
+             FractionBox[
+              RowBox[{"x", " ", "-", " ", 
+               RowBox[{"xi", "[", 
+                RowBox[{"[", "j", "]"}], "]"}]}], 
+              RowBox[{
+               RowBox[{"xi", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "-", 
+               RowBox[{"xi", "[", 
+                RowBox[{"[", "j", "]"}], "]"}]}]]}], ")"}]}]}], ";"}]}], 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"polynomial", "[", "x_", "]"}], " ", "=", " ", 
+       RowBox[{
+        UnderoverscriptBox["\[Sum]", 
+         RowBox[{"k", "=", "1"}], "n"], 
+        RowBox[{
+         RowBox[{"L", "[", 
+          RowBox[{"k", ",", "x"}], "]"}], " ", "*", " ", 
+         RowBox[{"fi", "[", 
+          RowBox[{"[", "k", "]"}], "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", 
+       RowBox[{"polynomial", "[", "x", "]"}], "]"}], ";"}]}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"nodes", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "1", ",", "3"}], "}"}]}], ";", " ", 
+   RowBox[{"values", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "3", ",", "55"}], "}"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"lagrangepolynomial", "[", "x_", "]"}], " ", "=", " ", 
+   RowBox[{"Lagrange", "[", 
+    RowBox[{"nodes", ",", "values"}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18]}], "Input",
+ CellChangeTimes->{{3.713486127962084*^9, 3.7134865187739706`*^9}, {
+  3.713486555512035*^9, 3.713486566900055*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   FractionBox["1", "3"], " ", 
+   RowBox[{"(", 
+    RowBox[{"1", "-", "x"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"3", "-", "x"}], ")"}]}], "+", 
+  RowBox[{
+   FractionBox["3", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{"3", "-", "x"}], ")"}], " ", "x"}], "+", 
+  RowBox[{
+   FractionBox["55", "6"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", "x"}], ")"}], " ", "x"}]}]], "Output",
+ CellChangeTimes->{3.7134865718920636`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"lagrangepolynomial", "[", "x_", "]"}], " ", "=", " ", 
+    RowBox[{"Simplify", "[", 
+     RowBox[{"lagrangepolynomial", "[", "x", "]"}], "]"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<Lagrange Polynomial = \>\"", ",", "\[IndentingNewLine]", 
+     RowBox[{"lagrangepolynomial", "[", "x", "]"}]}], "]"}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18]}], "Input",
+ CellChangeTimes->{{3.713486588428093*^9, 3.7134866583318157`*^9}}],
+
+Cell[BoxData[
+ StyleBox[
+  InterpretationBox[
+   RowBox[{"\<\"Lagrange Polynomial = \"\>", "\[InvisibleSpace]", 
+    RowBox[{"1", "-", 
+     RowBox[{"6", " ", "x"}], "+", 
+     RowBox[{"8", " ", 
+      SuperscriptBox["x", "2"]}]}]}],
+   SequenceForm[
+   "Lagrange Polynomial = ", 1 - 6 $CellContext`x + 8 $CellContext`x^2],
+   Editable->False],
+  FontFamily->"Courier New",
+  FontSize->18]], "Print",
+ CellChangeTimes->{3.71348666099942*^9}]
+}, Open  ]],
+
+Cell[" ", "Text",
+ Editable->False,
+ Selectable->False,
+ CellFrame->{{0, 0}, {0, 0.5}},
+ ShowCellBracket->False,
+ CellMargins->{{0, 0}, {1, 1}},
+ CellElementSpacings->{"CellMinHeight"->1},
+ CellFrameMargins->0,
+ CellFrameColor->RGBColor[0, 0, 1],
+ CellSize->{Inherited, 3}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{3.713486816859294*^9}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Q. Find the unique polynomial of degree 2 or less such that f (1) = 1, f (3) \
+= 27, f (4) = 64. Estimate f(1.5).\
+\>", "Subsubtitle",
+ CellChangeTimes->{{3.7134868293237157`*^9, 3.7134868651569786`*^9}, 
+   3.825043222686036*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{"nodes", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "3", ",", "4"}], "}"}]}], ";", " ", 
+   RowBox[{"values", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "27", ",", "64"}], "}"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"lagrangepolynomial", "[", "x_", "]"}], "  ", "=", " ", 
+   RowBox[{"Lagrange", "[", 
+    RowBox[{"nodes", ",", " ", "values"}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18]}], "Input",
+ CellChangeTimes->{{3.713486870616988*^9, 3.713486930645894*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   FractionBox["1", "6"], " ", 
+   RowBox[{"(", 
+    RowBox[{"3", "-", "x"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"4", "-", "x"}], ")"}]}], "+", 
+  RowBox[{
+   FractionBox["27", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{"4", "-", "x"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", "x"}], ")"}]}], "+", 
+  RowBox[{
+   FractionBox["64", "3"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "3"}], "+", "x"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", "x"}], ")"}]}]}]], "Output",
+ CellChangeTimes->{{3.713486925653885*^9, 3.713486931160695*^9}, 
+   3.713486978163577*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"lagrangepolynomial", "[", "x_", "]"}], " ", "=", " ", 
+    RowBox[{"Simplify", "[", 
+     RowBox[{"lagrangepolynomial", "[", "x", "]"}], "]"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<Lagrange Polynomial = \>\"", ",", "\[IndentingNewLine]", 
+     RowBox[{"lagrangepolynomial", "[", "x", "]"}]}], "]"}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18]}], "Input"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Lagrange Polynomial = \"\>", "\[InvisibleSpace]", 
+   RowBox[{"12", "-", 
+    RowBox[{"19", " ", "x"}], "+", 
+    RowBox[{"8", " ", 
+     SuperscriptBox["x", "2"]}]}]}],
+  SequenceForm[
+  "Lagrange Polynomial = ", 12 - 19 $CellContext`x + 8 $CellContext`x^2],
+  Editable->False]], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.713486960285946*^9, 3.7134869818451834`*^9}, {
+  3.7134875769216166`*^9, 3.7134875785527105`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{"lagrangepolynomial", "[", "1.5", "]"}],
+  FontFamily->"Courier New",
+  FontSize->18]], "Input",
+ CellChangeTimes->{{3.713486970925164*^9, 3.7134870061656265`*^9}}],
+
+Cell[BoxData["1.5`"], "Output",
+ CellChangeTimes->{{3.713486973327569*^9, 3.7134870068052273`*^9}}]
+}, Open  ]],
+
+Cell[" ", "Text",
+ Editable->False,
+ Selectable->False,
+ CellFrame->{{0, 0}, {0, 2}},
+ ShowCellBracket->False,
+ CellMargins->{{0, 0}, {1, 1}},
+ CellElementSpacings->{"CellMinHeight"->1},
+ CellFrameMargins->0,
+ CellFrameColor->RGBColor[0, 0, 1],
+ CellSize->{Inherited, 4}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1898, 879},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>FEPrivate`If[
+  FEPrivate`Equal[FEPrivate`$VersionNumber, 6.], 1.25, 1.25 Inherited],
+FrontEndVersion->"7.0 for Microsoft Windows (64-bit) (November 10, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 278, 5, 170, "Title"],
+Cell[848, 29, 141, 5, 62, "Subtitle"],
+Cell[992, 36, 238, 5, 35, "Subsubtitle"],
+Cell[CellGroupData[{
+Cell[1255, 45, 3699, 99, 406, "Input"],
+Cell[4957, 146, 487, 17, 55, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5481, 168, 600, 16, 89, "Input"],
+Cell[6084, 186, 441, 13, 35, "Print"]
+}, Open  ]],
+Cell[6540, 202, 273, 9, 7, "Text"],
+Cell[6816, 213, 68, 1, 35, "Input"],
+Cell[CellGroupData[{
+Cell[6909, 218, 240, 5, 35, "Subsubtitle"],
+Cell[CellGroupData[{
+Cell[7174, 227, 627, 18, 67, "Input"],
+Cell[7804, 247, 676, 24, 55, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8517, 276, 532, 15, 89, "Input"],
+Cell[9052, 293, 509, 13, 27, "Print"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9598, 311, 199, 5, 45, "Input"],
+Cell[9800, 318, 99, 1, 35, "Output"]
+}, Open  ]],
+Cell[9914, 322, 271, 9, 10, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

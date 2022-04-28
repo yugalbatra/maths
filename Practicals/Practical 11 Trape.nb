@@ -1,0 +1,177 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      4956,        168]
+NotebookOptionsPosition[      4205,        137]
+NotebookOutlinePosition[      4578,        153]
+CellTagsIndexPosition[      4535,        150]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+                                                      Practical 11
+                                                  Trapezoid Rule\
+\>", "Subtitle",
+ CellChangeTimes->{{3.827303985318867*^9, 3.8273040095918703`*^9}, {
+  3.842572334465435*^9, 3.8425723469190874`*^9}}],
+
+Cell["          Trapezoidal Rule", "Subsubtitle",
+ CellChangeTimes->{{3.82730408321447*^9, 3.8273040976503134`*^9}, {
+  3.842572502587654*^9, 3.8425725030373487`*^9}}],
+
+Cell[TextData[{
+ "Q.  Approximate the integral ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["\[Integral]", "1", "2.2"], 
+    RowBox[{
+     RowBox[{"log", "(", "x", ")"}], 
+     RowBox[{"\[DifferentialD]", "x"}]}]}], TraditionalForm]]],
+ ", using Trapezoid Rule, with the number of intervals n = 1 and 12"
+}], "Text",
+ CellChangeTimes->{{3.8273040752305326`*^9, 3.8273040762058244`*^9}, {
+  3.8273041255591917`*^9, 3.82730418833209*^9}, {3.827304421371854*^9, 
+  3.8273044259751906`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapezoidRule", "[", 
+    RowBox[{"a0_", ",", "b0_", ",", "n_", ",", "f_"}], "]"}], ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"a", "=", "a0"}], ",", 
+       RowBox[{"b", "=", "b0"}], ",", "h", ",", "ApproxIntegral"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"h", "=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"b", "-", "a"}], ")"}], "/", "n"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ApproxIntegral", "=", " ", 
+       RowBox[{
+        RowBox[{
+         FractionBox["h", "2"], 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"f", "[", "a", "]"}], "+", 
+           RowBox[{"f", "[", "b", "]"}]}], ")"}]}], "+", 
+        RowBox[{"h", " ", 
+         RowBox[{
+          UnderoverscriptBox["\[Sum]", 
+           RowBox[{"k", "=", "1"}], 
+           RowBox[{"n", "-", "1"}]], 
+          RowBox[{"f", "[", 
+           RowBox[{"a", "+", 
+            RowBox[{"h", " ", "k"}]}], "]"}]}]}]}]}], ";", " ", 
+      RowBox[{"Return", "[", "ApproxIntegral", "]"}], ";"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", " ", 
+   RowBox[{"Log", "[", "x", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TrapezoidRule", "[", 
+  RowBox[{"1", ",", "2.2", ",", "1", ",", "f"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.827304196532632*^9, 3.827304403339084*^9}, {
+  3.827304439271946*^9, 3.827304502032054*^9}, {3.8274615439304667`*^9, 
+  3.827461546504834*^9}}],
+
+Cell[BoxData["0.4730744162185622`"], "Output",
+ CellChangeTimes->{3.8273044955843625`*^9, 3.8274613794188356`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TrapezoidRule", "[", 
+  RowBox[{"1", ",", "2.2", ",", "12", ",", "f"}], "]"}]], "Input"],
+
+Cell[BoxData["0.5341518982649026`"], "Output",
+ CellChangeTimes->{3.8273045049747343`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"actualvalue", "=", 
+  RowBox[{
+   SubsuperscriptBox["\[Integral]", "1", "2.2"], 
+   RowBox[{
+    RowBox[{"Log", "[", "x", "]"}], 
+    RowBox[{"\[DifferentialD]", "x"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.827461421892956*^9, 3.8274614498280363`*^9}}],
+
+Cell[BoxData["0.5346061918552456`"], "Output",
+ CellChangeTimes->{3.827461454082447*^9}]
+}, Open  ]],
+
+Cell[" ", "Text",
+ Editable->False,
+ Selectable->False,
+ CellFrame->{{0, 0}, {0, 2}},
+ ShowCellBracket->False,
+ CellMargins->{{0, 0}, {1, 1}},
+ CellElementSpacings->{"CellMinHeight"->1},
+ CellFrameMargins->0,
+ CellFrameColor->RGBColor[0, 0, 1],
+ CellSize->{Inherited, 4}]
+}, Open  ]]
+},
+WindowSize->{1898, 879},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>2. Inherited,
+FrontEndVersion->"7.0 for Microsoft Windows (64-bit) (November 10, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 278, 5, 156, "Subtitle"],
+Cell[860, 29, 167, 2, 56, "Subsubtitle"],
+Cell[1030, 33, 505, 13, 63, "Text"],
+Cell[CellGroupData[{
+Cell[1560, 50, 1580, 44, 272, "Input"],
+Cell[3143, 96, 114, 1, 57, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3294, 102, 112, 2, 57, "Input"],
+Cell[3409, 106, 90, 1, 57, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3536, 112, 276, 7, 89, "Input"],
+Cell[3815, 121, 88, 1, 57, "Output"]
+}, Open  ]],
+Cell[3918, 125, 271, 9, 16, "Text"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

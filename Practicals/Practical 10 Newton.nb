@@ -1,0 +1,521 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     14981,        512]
+NotebookOptionsPosition[     13506,        457]
+NotebookOutlinePosition[     13951,        474]
+CellTagsIndexPosition[     13908,        471]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+                                                                    Practical \
+10
+                                                              Newton \
+Interpolation\
+\>", "Title",
+ CellChangeTimes->{{3.825036336095689*^9, 3.8250363527829723`*^9}, {
+  3.839836883365919*^9, 3.8398368883417616`*^9}}],
+
+Cell[" ", "Text",
+ Editable->False,
+ Selectable->False,
+ CellFrame->{{0, 0}, {0, 0.5}},
+ ShowCellBracket->False,
+ CellMargins->{{0, 0}, {1, 1}},
+ CellElementSpacings->{"CellMinHeight"->1},
+ CellFrameMargins->0,
+ CellFrameColor->RGBColor[0, 0, 1],
+ CellSize->{Inherited, 3}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox[" Newton Interpolation",
+ FontWeight->"Bold"]], "Subtitle",
+ CellChangeTimes->{3.825036310580021*^9}],
+
+Cell[TextData[{
+ "Q. For the following set of points, find out Newton Interpolating \
+polynomial\n         ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "1"], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ " =0, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "2"], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ " =1, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "3"], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ " =3\n         ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "1"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") =1, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "2"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") =3 , ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "3"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") =55.\n         Further approximate the value of f at x= 2, using the \
+resulted polynomial.\n         "
+}], "Subsubtitle",
+ CellChangeTimes->{{3.825036405711238*^9, 3.825036542947666*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{"NthDividedDiff", "[", 
+    RowBox[{"x0_", ",", "f0_", ",", "startindex_", ",", "endindex_"}], "]"}], 
+   ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"x", "=", "x0"}], ",", 
+       RowBox[{"f", "=", "f0"}], ",", 
+       RowBox[{"i", "=", "startindex"}], ",", 
+       RowBox[{"j", "=", "endindex"}], ",", "answer"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"i", "\[Equal]", "j"}], ",", 
+        RowBox[{"Return", "[", 
+         RowBox[{"f", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"answer", "=", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"NthDividedDiff", "[", 
+              RowBox[{"x", ",", "f", ",", 
+               RowBox[{"i", "+", "1"}], ",", "j"}], "]"}], "-", 
+             RowBox[{"NthDividedDiff", "[", 
+              RowBox[{"x", ",", "f", ",", "i", ",", 
+               RowBox[{"j", "-", "1"}]}], "]"}]}], ")"}], "/", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"x", "[", 
+              RowBox[{"[", "j", "]"}], "]"}], "-", 
+             RowBox[{"x", "[", 
+              RowBox[{"[", "i", "]"}], "]"}]}], ")"}]}]}], ";", 
+         RowBox[{"Return", "[", "answer", "]"}]}]}], "]"}], ";"}]}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"NewtonDDPoly", "[", 
+     RowBox[{"x0_", ",", "f0_"}], "]"}], ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"x1", "=", "x0"}], ",", 
+        RowBox[{"f", "=", "f0"}], ",", "n", ",", "newtonPolynomial", ",", "k",
+         ",", "j"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"n", "=", 
+        RowBox[{"Length", "[", "x1", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"newtonPolynomial", "[", "y_", "]"}], "=", " ", "0"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", " ", 
+         RowBox[{"i", " ", "\[LessSlantEqual]", "n"}], ",", 
+         RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"prod", "[", "y_", "]"}], "=", "1"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"k", "=", "1"}], ",", 
+            RowBox[{"k", "\[LessSlantEqual]", 
+             RowBox[{"i", "-", "1"}]}], ",", 
+            RowBox[{"k", "++"}], ",", 
+            RowBox[{
+             RowBox[{"prod", "[", "y_", "]"}], "=", " ", 
+             RowBox[{
+              RowBox[{"prod", "[", "y", "]"}], "*", " ", 
+              RowBox[{"(", 
+               RowBox[{"y", "-", 
+                RowBox[{"x1", "[", 
+                 RowBox[{"[", "k", "]"}], "]"}]}], ")"}]}]}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"newtonPolynomial", "[", "y_", "]"}], " ", "=", " ", 
+           RowBox[{
+            RowBox[{"newtonPolynomial", "[", "y", "]"}], "+", 
+            RowBox[{
+             RowBox[{"NthDividedDiff", "[", 
+              RowBox[{"x1", ",", "f", ",", "1", ",", "i"}], "]"}], "*", " ", 
+             RowBox[{"prod", "[", "y", "]"}]}]}]}]}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", 
+        RowBox[{"newtonPolynomial", "[", "y", "]"}], "]"}], ";"}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"nodes", "=", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "1", ",", "3"}], "}"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"values", "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "3", ",", "55"}], "}"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"NewtonPoly", "[", "y_", "]"}], "=", " ", 
+   RowBox[{"NewtonDDPoly", "[", 
+    RowBox[{"nodes", ",", "values"}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18]}], "Input",
+ CellChangeTimes->{{3.8250365544483337`*^9, 3.8250368210535917`*^9}, {
+   3.8250368543940735`*^9, 3.825037051266863*^9}, 3.8250373238336773`*^9, {
+   3.8250373889991302`*^9, 3.825037389731594*^9}, 3.8398369135297127`*^9}],
+
+Cell[BoxData[
+ RowBox[{"1", "+", 
+  RowBox[{"2", " ", "y"}], "+", 
+  RowBox[{"8", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", "y"}], ")"}], " ", "y"}]}]], "Output",
+ CellChangeTimes->{{3.825037391704424*^9, 3.825037404806125*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{
+   RowBox[{"NewtonPoly", "[", "y_", "]"}], "=", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{"NewtonPoly", "[", "y", "]"}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18]], "Input",
+ CellChangeTimes->{{3.825037347638278*^9, 3.825037370980102*^9}, {
+  3.8250374257802258`*^9, 3.825037426586075*^9}}],
+
+Cell[BoxData[
+ RowBox[{"1", "-", 
+  RowBox[{"6", " ", "y"}], "+", 
+  RowBox[{"8", " ", 
+   SuperscriptBox["y", "2"]}]}]], "Output",
+ CellChangeTimes->{{3.82503737235226*^9, 3.8250374287468925`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{"NewtonPoly", "[", "2", "]"}],
+  FontFamily->"Courier New",
+  FontSize->18]], "Input",
+ CellChangeTimes->{{3.825037436094178*^9, 3.825037440462268*^9}}],
+
+Cell[BoxData["21"], "Output",
+ CellChangeTimes->{3.82503744100364*^9}]
+}, Open  ]],
+
+Cell[" ", "Text",
+ Editable->False,
+ Selectable->False,
+ CellFrame->{{0, 0}, {0, 0.5}},
+ ShowCellBracket->False,
+ CellMargins->{{0, 0}, {1, 1}},
+ CellElementSpacings->{"CellMinHeight"->1},
+ CellFrameMargins->0,
+ CellFrameColor->RGBColor[0, 0, 1],
+ CellSize->{Inherited, 3}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Q. For the following set of points, find out Newton Interpolating \
+polynomial\n         ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "1"], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ " =0, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "2"], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ " =0.1, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "3"], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"=", 
+    SubscriptBox[
+     RowBox[{"0.2", ",", "x"}], "4"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ " =0.3, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["x", "5"], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ "=0.4\n         ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "1"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") =1, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "2"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") =1.095 , ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "3"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") =1.179, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "4"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") = 1.251, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", 
+    SubscriptBox["x", "5"]}], TraditionalForm]], "None",
+  FormatType->"TraditionalForm"],
+ ") = 1.310.\n         Further approximate the value of f at x= 0.15 and \
+0.25, using the resulted polynomial.\n         "
+}], "Subsubtitle",
+ CellChangeTimes->{{3.825037483735155*^9, 3.8250375606796503`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{"nodes", "=", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0.1", ",", "0.2", ",", "0.3", ",", "0.4"}], "}"}]}], 
+   ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"values", "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "1.095", ",", "1.179", ",", "1.251", ",", "1.310"}], 
+     "}"}]}], ";"}],
+  FontFamily->"Courier New",
+  FontSize->18], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"NewtonPoly", "[", "y_", "]"}], "=", " ", 
+   RowBox[{"NewtonDDPoly", "[", 
+    RowBox[{"nodes", ",", "values"}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18]}], "Input",
+ CellChangeTimes->{{3.8250375862453628`*^9, 3.8250376178790197`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"1", "+", 
+  RowBox[{"0.9499999999999997`", " ", "y"}], "-", 
+  RowBox[{"0.5499999999999949`", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "0.1`"}], "+", "y"}], ")"}], " ", "y"}], "-", 
+  RowBox[{"0.16666666666672048`", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "0.2`"}], "+", "y"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "0.1`"}], "+", "y"}], ")"}], " ", "y"}], "+", 
+  RowBox[{"3.470140841344005`*^-13", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "0.3`"}], "+", "y"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "0.2`"}], "+", "y"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "0.1`"}], "+", "y"}], ")"}], " ", "y"}]}]], "Output",
+ CellChangeTimes->{3.8250376201689634`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{
+   RowBox[{"poly", "[", "y_", "]"}], " ", "=", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{"NewtonPoly", "[", "y", "]"}], "]"}]}],
+  FontFamily->"Courier New",
+  FontSize->18]], "Input",
+ CellChangeTimes->{{3.8250376285606613`*^9, 3.8250376472379646`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"3.470140841344005`*^-13", " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"-", "4.8028790267607355`*^11"}], "+", "y"}], ")"}], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"-", "1.8832028410398454`"}], "+", "y"}], ")"}], " ", 
+  RowBox[{"(", 
+   RowBox[{"0.7756614356853746`", "\[InvisibleSpace]", "+", "y"}], ")"}], " ", 
+  RowBox[{"(", 
+   RowBox[{"4.107541405318146`", "\[InvisibleSpace]", "+", "y"}], 
+   ")"}]}]], "Output",
+ CellChangeTimes->{3.825037648122224*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{"poly", "[", "0.15", "]"}],
+  FontFamily->"Courier New",
+  FontSize->18]], "Input",
+ CellChangeTimes->{{3.825037653326143*^9, 3.8250376572075195`*^9}}],
+
+Cell[BoxData["1.1384375`"], "Output",
+ CellChangeTimes->{3.8250376577190647`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{"poly", "[", ".25", "]"}],
+  FontFamily->"Courier New",
+  FontSize->18]], "Input",
+ CellChangeTimes->{{3.8250376597168074`*^9, 3.825037664311555*^9}}],
+
+Cell[BoxData["1.2165624999999998`"], "Output",
+ CellChangeTimes->{3.825037664854648*^9}]
+}, Open  ]],
+
+Cell[" ", "Text",
+ Editable->False,
+ Selectable->False,
+ CellFrame->{{0, 0}, {0, 2}},
+ ShowCellBracket->False,
+ CellMargins->{{0, 0}, {1, 1}},
+ CellElementSpacings->{"CellMinHeight"->1},
+ CellFrameMargins->0,
+ CellFrameColor->RGBColor[0, 0, 1],
+ CellSize->{Inherited, 4}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1898, 879},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>FEPrivate`If[
+  FEPrivate`Equal[FEPrivate`$VersionNumber, 6.], 1.25, 1.25 Inherited],
+FrontEndVersion->"7.0 for Microsoft Windows (64-bit) (November 10, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 311, 7, 170, "Title"],
+Cell[881, 31, 273, 9, 6, "Text"],
+Cell[CellGroupData[{
+Cell[1179, 44, 124, 2, 62, "Subtitle"],
+Cell[1306, 48, 1123, 38, 132, "Subsubtitle"],
+Cell[CellGroupData[{
+Cell[2454, 90, 4516, 121, 408, "Input"],
+Cell[6973, 213, 252, 7, 35, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7262, 225, 338, 9, 45, "Input"],
+Cell[7603, 236, 198, 5, 35, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7838, 246, 187, 5, 45, "Input"],
+Cell[8028, 253, 70, 1, 35, "Output"]
+}, Open  ]],
+Cell[8113, 257, 273, 9, 7, "Text"],
+Cell[CellGroupData[{
+Cell[8411, 270, 1751, 62, 132, "Subsubtitle"],
+Cell[CellGroupData[{
+Cell[10187, 336, 756, 24, 92, "Input"],
+Cell[10946, 362, 791, 24, 37, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11774, 391, 290, 8, 45, "Input"],
+Cell[12067, 401, 493, 13, 40, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12597, 419, 186, 5, 45, "Input"],
+Cell[12786, 426, 81, 1, 35, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12904, 432, 185, 5, 45, "Input"],
+Cell[13092, 439, 88, 1, 35, "Output"]
+}, Open  ]],
+Cell[13195, 443, 271, 9, 10, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
